@@ -1,0 +1,59 @@
+{
+  "data": "2026-11-08",
+  "episodios": 200,
+  "pesos": "DQN final",
+  "cenarios": {
+    "5x (cenário de treino)": {
+      "comprar e segurar": {
+        "media": 6.419482024053771,
+        "erro_padrao": 1.3799852875460952,
+        "exposicao": 1.0,
+        "ganha_bh_pct": 0.0
+      },
+      "ficar fora": {
+        "media": 0.0,
+        "erro_padrao": 0.0,
+        "exposicao": 0.0,
+        "ganha_bh_pct": 39.0
+      },
+      "tabela Q": {
+        "media": 27.015495045605523,
+        "erro_padrao": 1.1991010731653637,
+        "exposicao": 0.48284641505123277,
+        "ganha_bh_pct": 90.0
+      },
+      "DQN": {
+        "media": 28.93192368491265,
+        "erro_padrao": 1.2573585932369524,
+        "exposicao": 0.5066288741392899,
+        "ganha_bh_pct": 91.5
+      }
+    },
+    "1x (cenário realista, sem retreinar)": {
+      "comprar e segurar": {
+        "media": 3.1856516762583187,
+        "erro_padrao": 0.836963876658864,
+        "exposicao": 1.0,
+        "ganha_bh_pct": 0.0
+      },
+      "ficar fora": {
+        "media": 0.0,
+        "erro_padrao": 0.0,
+        "exposicao": 0.0,
+        "ganha_bh_pct": 48.5
+      },
+      "tabela Q": {
+        "media": -4.752574084472494,
+        "erro_padrao": 0.5589147603610676,
+        "exposicao": 0.4434384931777492,
+        "ganha_bh_pct": 16.0
+      },
+      "DQN": {
+        "media": -4.723003716261042,
+        "erro_padrao": 0.5719226147470131,
+        "exposicao": 0.4724342989318647,
+        "ganha_bh_pct": 13.5
+      }
+    }
+  }
+}

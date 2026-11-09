@@ -1,0 +1,115 @@
+:root {
+  --bg: #050505;
+  --panel: #0b0b0b;
+  --line: #1f2933;
+  --up: #00e676;
+  --down: #ff4545;
+  --ink: #e5e7eb;
+  --mute: #8491a3;
+  --field: #0f1417;
+  --hover: #151b20;
+}
+
+html { background: var(--bg); color-scheme: dark; }
+body { font-feature-settings: "tnum"; }
+
+.num { font-family: "JetBrains Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
+
+/* botões */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
+  height: 2rem; padding: 0 .75rem; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--field); color: var(--ink); font-size: .8125rem; font-weight: 500;
+  cursor: pointer; transition: background .15s, border-color .15s, color .15s;
+}
+.btn:hover { background: var(--hover); border-color: #2b3844; }
+.btn.active { background: rgba(0, 230, 118, .12); border-color: rgba(0, 230, 118, .45); color: var(--up); }
+.btn.active-down { background: rgba(255, 69, 69, .12); border-color: rgba(255, 69, 69, .45); color: var(--down); }
+.btn-up { background: var(--up); border-color: var(--up); color: #00130a; font-weight: 600; }
+.btn-up:hover { background: #2cf08d; border-color: #2cf08d; }
+
+/* grupos segmentados */
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--field); }
+.seg button {
+  height: 1.875rem; padding: 0 .7rem; font-size: .78rem; color: var(--mute); cursor: pointer;
+  font-family: "JetBrains Mono", ui-monospace, monospace; transition: color .15s, background .15s;
+}
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button:hover { color: var(--ink); }
+.seg button.active { background: rgba(0, 230, 118, .12); color: var(--up); }
+
+:is(.btn, .seg button, .tabbtn, .chip, .field):focus-visible { outline: 2px solid var(--up); outline-offset: 2px; }
+
+/* campos */
+.field {
+  height: 2.25rem; width: 100%; padding: 0 .75rem; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--field); color: var(--ink); font-size: .875rem;
+}
+.field::placeholder { color: #5b6675; }
+.field:focus { border-color: rgba(0, 230, 118, .55); outline: none; }
+select.field { appearance: none; padding-right: 1.5rem; }
+.label { display: block; margin-bottom: .3rem; font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; color: var(--mute); }
+
+/* abas do painel lateral */
+.tabbtn {
+  flex: 1; height: 2.5rem; font-size: .85rem; font-weight: 500; color: var(--mute); cursor: pointer;
+  border-bottom: 2px solid transparent; transition: color .15s, border-color .15s;
+}
+.tabbtn:hover { color: var(--ink); }
+.tabbtn.active { color: var(--ink); border-bottom-color: var(--up); }
+.count { margin-left: .35rem; padding: 0 .4rem; border-radius: 999px; background: var(--hover); color: var(--mute); font-size: .7rem; }
+
+/* log */
+.log-item { display: grid; grid-template-columns: auto 1fr auto; gap: .6rem; align-items: center; padding: .6rem 1rem; border-bottom: 1px solid #141a20; }
+.tag { padding: .12rem .4rem; border-radius: 4px; font-size: .66rem; font-weight: 700; letter-spacing: .04em; }
+.tag.buy { color: var(--up); background: rgba(0, 230, 118, .12); }
+.tag.sell { color: var(--down); background: rgba(255, 69, 69, .12); }
+@keyframes fresh { from { background: rgba(0, 230, 118, .18); } to { background: transparent; } }
+.fresh { animation: fresh 1.6s ease-out; }
+
+/* traders */
+.trader { display: flex; align-items: center; gap: .75rem; padding: .75rem 1rem; border-bottom: 1px solid #141a20; }
+.avatar { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 999px; border: 1px solid; font-size: .72rem; font-weight: 700; flex: none; }
+.badge { padding: .1rem .45rem; border-radius: 999px; font-size: .66rem; font-weight: 600; }
+.badge-agressivo { color: #ff8a65; background: rgba(255, 138, 101, .12); }
+.badge-moderado { color: #64b5f6; background: rgba(100, 181, 246, .12); }
+.badge-ia { color: #b388ff; background: rgba(179, 136, 255, .14); }
+.badge-seguro { color: var(--up); background: rgba(0, 230, 118, .12); }
+
+/* chips de seleção de bots */
+.chip {
+  display: inline-flex; align-items: center; gap: .45rem; height: 2rem; padding: 0 .8rem; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--field); color: var(--mute); font-size: .8rem; cursor: pointer;
+  transition: border-color .15s, color .15s, background .15s;
+}
+.chip:hover { color: var(--ink); border-color: #2b3844; }
+.chip.on { color: var(--ink); background: var(--hover); border-color: #34434f; }
+.chip i { width: .55rem; height: .55rem; border-radius: 999px; display: inline-block; }
+
+/* status */
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+.live { animation: pulse 1.4s ease-in-out infinite; }
+
+/* tabela */
+.tbl th { padding: .5rem .75rem; text-align: left; font-size: .7rem; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; color: var(--mute); border-bottom: 1px solid var(--line); }
+.tbl td { padding: .6rem .75rem; border-bottom: 1px solid #141a20; font-size: .85rem; }
+.tbl tbody tr { cursor: pointer; transition: background .15s; }
+.tbl tbody tr:hover { background: #0f1417; }
+.tbl tbody tr.sel { background: #10161b; }
+
+/* nav lateral */
+.nav { display: flex; align-items: center; gap: .75rem; height: 2.5rem; padding: 0 .9rem; border-radius: 8px; color: var(--mute); font-size: .9rem; }
+.nav svg { width: 1.15rem; height: 1.15rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.nav.active { background: rgba(0, 230, 118, .1); color: var(--up); }
+.nav[aria-disabled="true"] { opacity: .55; cursor: not-allowed; }
+
+/* scrollbar */
+* { scrollbar-width: thin; scrollbar-color: #26323d transparent; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: #26323d; border-radius: 8px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

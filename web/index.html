@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>udiCOIN Market</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { bg: '#050505', panel: '#0B0B0B', line: '#1F2933', up: '#00E676', down: '#FF4545', ink: '#E5E7EB', mute: '#8491A3' },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], mono: ['JetBrains Mono', 'ui-monospace', 'monospace'] },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-bg text-ink font-sans antialiased min-h-screen">
+<div class="flex min-h-screen">
+
+  <!-- ░░ Sidebar ░░ -->
+  <aside class="hidden lg:flex w-56 shrink-0 flex-col border-r border-line bg-[#070707] sticky top-0 h-screen p-3">
+    <div class="flex items-center gap-2 px-2 py-3 mb-3">
+      <svg width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <rect x="3" y="18" width="6" height="11" rx="1.5" fill="#00E676" opacity=".55"/>
+        <rect x="13" y="11" width="6" height="18" rx="1.5" fill="#00E676" opacity=".8"/>
+        <rect x="23" y="3" width="6" height="26" rx="1.5" fill="#00E676"/>
+      </svg>
+      <div class="leading-tight">
+        <div class="text-lg font-semibold tracking-tight">udi<span class="text-up">COIN</span></div>
+        <div class="text-[10px] uppercase tracking-[.18em] text-mute">Market</div>
+      </div>
+    </div>
+
+    <nav class="space-y-1" aria-label="Principal">
+      <a class="nav active" id="nav-dash" href="#" aria-current="page">
+        <svg viewBox="0 0 24 24"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg>Dashboard
+      </a>
+      <a class="nav" id="nav-rede" href="#rede">
+        <svg viewBox="0 0 24 24"><circle cx="5" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="19" cy="18" r="2"/><path d="M7 6l3.2 4.8M7 18l3.2-4.8M14 11l3.2-4M14 13l3.2 4"/></svg>Rede neural
+      </a>
+      <a class="nav" aria-disabled="true" title="Em breve">
+        <svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6L4.5 19a1.5 1.5 0 0 0 1.3 2h12.4a1.5 1.5 0 0 0 1.3-2L14 9V3"/></svg>Laboratório
+      </a>
+      <a class="nav" aria-disabled="true" title="Em breve">
+        <svg viewBox="0 0 24 24"><path d="M5 20V10M12 20V4M19 20v-7"/></svg>Resultados
+      </a>
+      <a class="nav" aria-disabled="true" title="Em breve">
+        <svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/></svg>Arena de Bots
+      </a>
+      <a class="nav" aria-disabled="true" title="Em breve">
+        <svg viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>Configurações
+      </a>
+      <a class="nav" aria-disabled="true" title="Em breve">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>Sobre
+      </a>
+    </nav>
+
+    <div class="mt-auto space-y-3 px-2 pb-2 text-xs">
+      <div class="flex items-center gap-2 text-mute">
+        Modo <span class="inline-block w-2 h-2 rounded-full bg-up"></span><span class="text-up">Simulação</span>
+      </div>
+      <div class="text-mute">Dados: <span id="side-source" class="text-ink">simulados no navegador</span></div>
+      <div class="text-mute">Simulado até<br><span id="side-date" class="num text-ink">—</span></div>
+    </div>
+  </aside>
+
+  <!-- ░░ Conteúdo ░░ -->
+  <main class="flex-1 min-w-0 p-3 sm:p-4 lg:p-5 space-y-4">
+
+    <header class="lg:hidden flex items-center gap-2">
+      <svg width="26" height="26" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <rect x="3" y="18" width="6" height="11" rx="1.5" fill="#00E676" opacity=".55"/>
+        <rect x="13" y="11" width="6" height="18" rx="1.5" fill="#00E676" opacity=".8"/>
+        <rect x="23" y="3" width="6" height="26" rx="1.5" fill="#00E676"/>
+      </svg>
+      <span class="text-lg font-semibold">udi<span class="text-up">COIN</span> <span class="text-mute text-sm font-normal">Market</span></span>
+      <div class="ml-auto flex gap-1">
+        <button id="m-nav-dash" class="btn !h-7 active" type="button">Dashboard</button>
+        <button id="m-nav-rede" class="btn !h-7" type="button">Rede neural</button>
+      </div>
+    </header>
+
+    <div id="view-dash" class="space-y-4">
+
+    <!-- KPIs -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3" aria-label="Resumo">
+      <div class="panel p-4 flex items-center justify-between gap-3">
+        <div class="min-w-0">
+          <div class="text-xs text-mute">Preço udiCOIN</div>
+          <div id="kpi-price" class="num text-xl font-semibold">—</div>
+          <div id="kpi-price-var" class="num text-xs"></div>
+        </div>
+        <div id="kpi-price-spark" aria-hidden="true"></div>
+      </div>
+      <div class="panel p-4 flex items-center justify-between gap-3">
+        <div class="min-w-0">
+          <div class="text-xs text-mute">Patrimônio dos bots</div>
+          <div id="kpi-equity" class="num text-xl font-semibold">—</div>
+          <div id="kpi-equity-var" class="num text-xs"></div>
+        </div>
+        <div id="kpi-equity-spark" aria-hidden="true"></div>
+      </div>
+      <div class="panel p-4">
+        <div class="text-xs text-mute">Melhor bot</div>
+        <div id="kpi-best" class="text-xl font-semibold truncate">—</div>
+        <div id="kpi-best-var" class="num text-xs"></div>
+      </div>
+      <div class="panel p-4">
+        <div class="text-xs text-mute">Total de operações</div>
+        <div id="kpi-ops" class="num text-xl font-semibold">—</div>
+        <div id="kpi-ops-sub" class="num text-xs text-mute"></div>
+      </div>
+    </section>
+
+    <!-- Gráfico + painel lateral -->
+    <section class="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_360px] gap-4">
+
+      <div class="panel overflow-hidden">
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-3 px-4 pt-4">
+          <div class="flex items-center gap-3">
+            <div class="grid place-items-center w-9 h-9 rounded-full bg-up/10 border border-up/40 text-up font-bold text-sm">U</div>
+            <div>
+              <div class="text-xs text-mute">udiCOIN · UDI/BRL · 1D <span id="mode-pill" class="ml-2 px-2 py-0.5 rounded-full border border-line text-[10px] text-mute"></span></div>
+              <div class="flex items-baseline gap-2">
+                <span id="price" class="num text-2xl font-semibold">—</span>
+                <span id="price-var" class="num text-sm"></span>
+              </div>
+            </div>
+          </div>
+          <div id="ohlc" class="num text-xs text-mute flex flex-wrap gap-x-3"></div>
+          <div class="ml-auto flex flex-wrap gap-2">
+            <button id="btn-anchor" class="btn !h-[1.875rem] hidden" aria-pressed="false" title="Mostra o dólar reescalado (valor justo) como linha pontilhada. Só para visualização.">Âncora</button>
+            <div class="seg" id="range-seg" role="group" aria-label="Intervalo">
+              <button data-range="1M">1M</button><button data-range="3M">3M</button>
+              <button data-range="6M" class="active">6M</button><button data-range="1A">1A</button>
+              <button data-range="Tudo">Tudo</button>
+            </div>
+            <div class="seg" id="type-seg" role="group" aria-label="Tipo de gráfico">
+              <button data-type="candles" class="active">Velas</button><button data-type="line">Linha</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="chart" class="h-[420px] mt-3"></div>
+
+        <!-- Controles da simulação -->
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-3 border-t border-line px-4 py-3">
+          <div class="flex items-center gap-2">
+            <button id="btn-play" class="btn" aria-label="Iniciar simulação">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M2 1l9 5-9 5z"/></svg>Play
+            </button>
+            <button id="btn-pause" class="btn" aria-label="Pausar simulação">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M2 1h3v10H2zM7 1h3v10H7z"/></svg>Pause
+            </button>
+          </div>
+          <div class="seg" id="speed-seg" role="group" aria-label="Velocidade">
+            <button data-speed="1" class="active">1x</button><button data-speed="2">2x</button>
+            <button data-speed="5">5x</button><button data-speed="10">10x</button>
+          </div>
+          <div class="flex flex-wrap items-center gap-2" id="adv-seg" role="group" aria-label="Avançar o tempo">
+            <span class="text-xs text-mute">Avançar</span>
+            <button class="btn" data-adv="1">+1 dia</button>
+            <button class="btn" data-adv="7">+7 dias</button>
+            <button class="btn" data-adv="30">+30 dias</button>
+            <button id="adv-year" class="btn" data-adv="365">+1 ano</button>
+          </div>
+          <div class="flex items-center gap-2">
+            <input id="adv-n" class="field num !w-20" type="number" min="1" max="3650" value="10" aria-label="Quantidade a avançar">
+            <select id="adv-unit" class="field !w-24" aria-label="Unidade"><option value="1">dias</option><option value="365">anos</option></select>
+            <button id="adv-go" class="btn">Ir</button>
+          </div>
+          <div class="ml-auto flex items-center gap-2 text-xs">
+            <span id="sim-dot" class="inline-block w-2 h-2 rounded-full bg-mute"></span>
+            <span id="sim-status" class="text-mute">Pausada</span>
+            <span class="text-line">|</span>
+            <span id="sim-date" class="num text-mute"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Painel lateral: Log / Traders -->
+      <aside class="panel flex flex-col overflow-hidden min-h-[420px] max-h-[640px] xl:max-h-none xl:h-0 xl:min-h-full">
+        <div class="flex border-b border-line" role="tablist">
+          <button id="tab-log" class="tabbtn active" role="tab" aria-selected="true" data-tab="log">Log<span id="count-log" class="count num">0</span></button>
+          <button id="tab-traders" class="tabbtn" role="tab" aria-selected="false" data-tab="traders">Traders<span id="count-traders" class="count num">0</span></button>
+        </div>
+
+        <div id="pane-log" class="flex-1 min-h-0 overflow-y-auto">
+          <ul id="log-list"></ul>
+        </div>
+
+        <div id="pane-traders" class="flex-1 min-h-0 overflow-y-auto hidden">
+          <ul id="traders-list"></ul>
+          <div class="p-4">
+            <button id="bot-add-btn" class="btn w-full !h-10 border-dashed">+ Adicionar bot</button>
+
+            <form id="bot-form" class="panel !bg-[#0F1417] p-4 space-y-3 hidden" novalidate>
+              <div class="text-sm font-semibold">Novo bot</div>
+              <div>
+                <label class="label" for="bot-name">Nome</label>
+                <input id="bot-name" class="field" maxlength="20" placeholder="Ex.: Omega" autocomplete="off">
+              </div>
+              <div>
+                <span class="label">Perfil</span>
+                <div class="seg w-full" id="bot-profile-seg" role="group" aria-label="Perfil do bot">
+                  <button type="button" class="flex-1" data-profile="agressivo">Agressivo</button>
+                  <button type="button" class="flex-1 active" data-profile="moderado">Moderado</button>
+                  <button type="button" class="flex-1" data-profile="seguro">Seguro</button>
+                  <button type="button" class="flex-1" data-profile="ia" id="bot-profile-ia" style="display:none">IA</button>
+                </div>
+                <p id="bot-profile-desc" class="mt-2 text-xs text-mute"></p>
+              </div>
+              <div>
+                <label class="label" for="bot-capital">Capital inicial (R$)</label>
+                <input id="bot-capital" class="field num" type="number" min="100" max="10000000" step="100" value="10000">
+              </div>
+              <p id="bot-error" class="text-xs text-down hidden" role="alert"></p>
+              <div class="flex gap-2 justify-end">
+                <button type="button" id="bot-cancel" class="btn">Cancelar</button>
+                <button type="submit" id="bot-create" class="btn btn-up">Criar bot</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Estatísticas -->
+    <section class="panel p-4" aria-label="Estatísticas dos bots">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <h2 class="text-base font-semibold">Estatísticas dos bots</h2>
+        <div id="chips" class="flex flex-wrap gap-2" role="group" aria-label="Selecionar bots"></div>
+      </div>
+
+      <div class="grid grid-cols-1 2xl:grid-cols-2 gap-6 mt-4">
+        <div class="min-w-0">
+          <h3 class="text-sm text-mute mb-2">Lucro acumulado (%)</h3>
+          <div class="h-72"><canvas id="chart-profit"></canvas></div>
+        </div>
+
+        <div class="min-w-0">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <div class="seg" id="view-seg" role="group" aria-label="Visualização">
+              <button data-view="equity" class="active">Montante</button>
+              <button data-view="pos">Posição</button>
+              <button data-view="ops">Operações</button>
+            </div>
+          </div>
+          <div class="flex flex-col md:flex-row gap-4">
+            <div class="h-72 flex-1 min-w-0"><canvas id="chart-view"></canvas></div>
+            <div class="md:w-52 shrink-0 md:border-l border-line md:pl-4 flex flex-col justify-center">
+              <div class="text-xs text-mute">Montante</div>
+              <div id="montante-value" class="num text-2xl font-semibold mt-1">—</div>
+              <div id="montante-pct" class="num text-base mt-1"></div>
+              <div class="text-xs text-mute mt-1">desde o começo</div>
+              <div id="montante-names" class="text-xs text-mute mt-3 truncate"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto mt-6">
+        <table class="tbl w-full min-w-[640px]">
+          <thead><tr>
+            <th>Bot</th><th>Perfil</th><th class="!text-right">Saldo</th><th class="!text-right">Lucro</th>
+            <th class="!text-right">Operações</th><th class="!text-right">Posição (UDI)</th>
+          </tr></thead>
+          <tbody id="stats-body"></tbody>
+        </table>
+      </div>
+    </section>
+    </div><!-- /view-dash -->
+
+    <section id="view-rede" class="hidden space-y-4" aria-label="Rede neural"></section>
+  </main>
+</div>
+
+<script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="data/usdbrl.js"></script>
+<script src="data/agente_dqn.js" onerror="void 0"></script>
+<script src="js/agente-ia.js"></script>
+<script src="js/data-provider.js"></script>
+<script src="js/rede-view.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

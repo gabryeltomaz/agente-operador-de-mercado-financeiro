@@ -1,0 +1,8 @@
+Metadata-Version: 2.4
+Name: udicoin
+Version: 0.1.0
+Summary: Ambiente de mercado simulado (udiCOIN) para um agente de aprendizado por reforço
+Requires-Python: >=3.10
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: matplotlib

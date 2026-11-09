@@ -1,0 +1,5 @@
+numpy
+pandas
+matplotlib
+pytest
+# PyTorch entra só no passo do DQN: pip install torch

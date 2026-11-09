@@ -1,0 +1,17 @@
+README.md
+pyproject.toml
+src/udicoin/__init__.py
+src/udicoin.egg-info/PKG-INFO
+src/udicoin.egg-info/SOURCES.txt
+src/udicoin.egg-info/dependency_links.txt
+src/udicoin.egg-info/requires.txt
+src/udicoin.egg-info/top_level.txt
+src/udicoin/data/__init__.py
+src/udicoin/data/loader.py
+src/udicoin/market/__init__.py
+src/udicoin/market/diagnostico.py
+src/udicoin/market/paridade.py
+src/udicoin/market/price_model.py
+tests/test_loader.py
+tests/test_paridade_js.py
+tests/test_price_model.py
