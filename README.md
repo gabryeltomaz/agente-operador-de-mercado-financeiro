@@ -3,6 +3,9 @@
 Simulador de bolsa com uma moeda fictícia (**udiCOIN**) e bots de IA.
 Stack do site: HTML + Tailwind (CDN) + JavaScript puro. Gráficos: Lightweight Charts (preço) e Chart.js (estatísticas).
 
+![](shot-desktop-2.png)
+
+
 ## Como rodar
 1. **(Uma vez) Baixe o dólar real**, para a udiCOIN ter âncora:
    ```
